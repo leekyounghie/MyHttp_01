@@ -9,7 +9,6 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
 import java.net.URL;
 
 
@@ -39,10 +38,19 @@ public class MainActivity extends ActionBarActivity {
 
             try {
                 URL url = new URL(urlStr);
-                HttpURLConnection
+                HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+                conn.setDoOutput(true);
+                conn.setDoInput(true);
+                conn.setConnectTimeout(15000);
 
 
-            } catch (MalformedURLException e) {
+                int resCode = conn.getResponseCode();
+                if (resCode == HttpURLConnection.HTTP_OK) {
+
+                }
+
+
+            } catch (Exception e) {
                 e.printStackTrace();
             }
 
